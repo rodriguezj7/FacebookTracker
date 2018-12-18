@@ -11,7 +11,7 @@ const issue = require('./model/issue')
  * * require("./config/keys") returns  { mongURI: 'string'}
  * * monogData has mongoURI value which is a string
  *
- * @private
+* @private
  */
 const mongoData = require("./config/keys").mongoURI;
 
@@ -33,6 +33,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => res.send("Working!"));
+
 
 app.listen(port, () => console.log(`Server is listening on ${port}`));
