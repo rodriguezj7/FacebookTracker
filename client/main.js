@@ -8,20 +8,11 @@ class App {
     this.fetchIssues = this.fetchIssues.bind(this);
     this.deleteIssue = this.deleteIssue.bind(this);
     this.deleteHtml = this.deleteHtml.bind(this);
-    this.initializeEventListeners = this.initializeEventListeners.bind(this);
   }
-  initializeEventListeners() {
-    document
-      .getElementById("close")
-      .addEventListener("submit", InitApp.setStatusClosed(`${this.id}`));
-
-    document.getElementById('delete').addEventListener("submit", InitApp.deleteIssue(`${this.id}`));
-  }
-  setStatusClosed(e, id) {
-    e.preventDefault();
+  setStatusClosed(id) {
     for (let issue of this.issues) {
       (issue.id === id) ? (issue.status = "Closed") : null;
-      this.deleteHtml(id)
+      this.deleteHtml(id);
       this.fetchIssues();
     }
   }
@@ -39,7 +30,7 @@ class App {
   }
   //check if we have issues
   checkIfIssuesExist(issue) {
-    if (localStorage.getItem("issues") === null) {
+    if (this.issues.length === 0) {
       this.issues.push(issue);
     } else {
       const issues = JSON.parse(localStorage.getItem("issues"));
@@ -64,7 +55,7 @@ class App {
     job,
     assignedTo,
     status
-  } = {}) {
+  }) {
     const issuesList = document.getElementById("issuesList");
     issuesList.innerHTML += '';
     const issueCard = `<div class="well" id="${id}">
@@ -73,7 +64,7 @@ class App {
                                 <h3> ${description} </h3>
                                 <p><span class="glyphicon glyphicon-globe"></span> <a href="${job}">${job}</a></p>
                                 <span class="glyphicon glyphicon-user"></span> ${assignedTo} </p>
-                                <a href="#" class="btn btn-warning" id="close" onclick="InitApp.setStatusClosed('${id}')">Close</a>
+                                <a href="#" class="btn btn-warning" id="close"onclick="InitApp.setStatusClosed('${id}')">Close</a>
                                 <a href="#" class="btn btn-danger"id="delete" onclick="InitApp.deleteIssue('${id}')">Delete</a>
                                 </div>`;
     issuesList.innerHTML += issueCard;
@@ -113,4 +104,3 @@ const InitApp = new App();
 document
   .getElementById("issueInputForm")
   .addEventListener("submit", InitApp.createIssue);
-InitApp.initializeEventListeners();
