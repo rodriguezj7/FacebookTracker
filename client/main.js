@@ -4,15 +4,13 @@ class App {
     this.setStatusClosed = this.setStatusClosed.bind(this);
     this.createIssue = this.createIssue.bind(this);
     this.saveIssue = this.saveIssue.bind(this);
-    this.checkIfIssuesExist = this.checkIfIssuesExist.bind(this);
     this.fetchIssues = this.fetchIssues.bind(this);
     this.deleteIssue = this.deleteIssue.bind(this);
     this.deleteHtml = this.deleteHtml.bind(this);
   }
   setStatusClosed(id) {
     for (let issue of this.issues) {
-      (issue.id === id) ? (issue.status = "Closed") : null;
-      this.deleteHtml(id);
+      (issue.id === id) ? (issue.status = "Closed") : issue.status = "Open";
       this.fetchIssues();
     }
   }
@@ -22,26 +20,18 @@ class App {
     const NewIssue = new Issue();
     this.saveIssue(NewIssue.issue);
     document.getElementById("issueInputForm").reset();
-    this.fetchIssues();
+    this.fetchIssues(NewIssue.issue);
   }
   //save issue
   saveIssue(issue) {
-    this.checkIfIssuesExist(issue);
+    this.issues.push(issue);
   }
   //check if we have issues
-  checkIfIssuesExist(issue) {
-    if (this.issues.length === 0) {
-      this.issues.push(issue);
-    } else {
-      const issues = JSON.parse(localStorage.getItem("issues"));
-      this.issues.push(issue);
-    }
-  }
+  
   //create html for fetched issues
-  fetchIssues() {
-    for (let issue of this.issues) {
-      this.createHtml(issue);
-    }
+  fetchIssues(issue) {
+    console.log(issue)
+    this.createHtml(issue);
   }
   // remove html
   deleteHtml(id) {
