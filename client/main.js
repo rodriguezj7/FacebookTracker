@@ -14,7 +14,7 @@ class App {
       this.fetchIssues();
     }
   }
-  //createissue
+  //! REFACTOR THIS, and check for duplicate html being produced
   createIssue(event) {
     event.preventDefault();
     const NewIssue = new Issue();
@@ -39,6 +39,7 @@ class App {
     divToRemove.remove(); // Removes the div with the appropriate id
   }
   //method for creating html
+  // ! create HTML bare with document.createElment
   createHtml({
     id,
     description,
