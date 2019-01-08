@@ -49,6 +49,10 @@ class App {
   }) {
     const issuesList = document.getElementById("issuesList");
     issuesList.innerHTML += '';
+    const cardElement = document.createElement('div');
+    cardElement.className = "well"
+    cardElement.id = id;
+    const h6 = document.createElement('h6');
     const issueCard = `<div class="well" id="${id}">
                                 <h6>Issue ID:  ${id} </h6>
                                 <p><span class="label label-info"> ${status} </span></p>
@@ -70,6 +74,11 @@ class App {
     }
     this.fetchIssues();
   }
+  // clearList(){
+  //   const issuesList = document.getElementById("issuesList");
+  //   issuesList.
+
+  // }
 }
 
 class Issue extends App {
